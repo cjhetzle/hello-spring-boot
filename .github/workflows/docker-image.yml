@@ -20,6 +20,11 @@ jobs:
       with:
         java-version: '18'
         distribution: 'temurin'
+    - name: Set up Maven 3.9.6
+      uses: stCarolas/setup-maven@v.4.5
+      with:
+        # Version Spec of the version to use.  Examples: 10.x, 10.15.1, >=10.15.0
+        maven-version: 3.9.6 # optional, default is 3.8.2
     - name: Debug
       run: mvn -version
     - name: Build with Maven
