@@ -1,4 +1,4 @@
-name: Update Dependency Tree
+name: Free-Up Storage
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  scan-dependencies:
+  run-garbage-collection:
 
     runs-on: ubuntu-latest
 
