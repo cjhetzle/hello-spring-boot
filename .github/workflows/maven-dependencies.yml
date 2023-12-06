@@ -25,7 +25,7 @@ jobs:
         with:
           maven-version: 3.9.6 # default is 3.8.2
       - name: Debug 🐛
-        run: mvn -version
+        run: mvn -version && chmod +x mvnw
       - name: Maven Dependency Tree Dependency Submission
         # You may pin to the exact commit or the version.
         # uses: advanced-security/maven-dependency-submission-action@fcd7eab6b6d22946badc98d1e62665cdee93e0ae
