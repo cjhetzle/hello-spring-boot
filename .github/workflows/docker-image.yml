@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI/CD
 
 on:
   push:
@@ -13,26 +13,24 @@ jobs:
     runs-on: ubuntu:latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout from Github 🥚
+      uses: actions/checkout@v3
 
-    - name: Set up JDK 17
+    - name: Set up JDK 17 🐣
       uses: actions/setup-java@v2
       with:
         java-version: '17'
         distribution: 'temurin'
-    - name: Set up Maven 3.9.6
+    - name: Set up Maven 3.9.6 🐤
       uses: stCarolas/setup-maven@v.4.5
       with:
-        # Version Spec of the version to use.  Examples: 10.x, 10.15.1, >=10.15.0
-        maven-version: 3.9.6 # optional, default is 3.8.2
-    - name: Debug
+        maven-version: 3.9.6 # default is 3.8.2
+    - name: Debug 🐛
       run: mvn -version
     - name: Build with Maven
       run: mvn package --file pom.xml
     
-    - name: GitHub Action for DigitalOcean - doctl
-      # You may pin to the exact commit or the version. 
-      # uses: digitalocean/action-doctl@e5cb5b0cde9789f79c5115c2c4d902f38a708804
+    - name: GitHub Action for DigitalOcean - doctl 🌊
       uses: digitalocean/action-doctl@v2.5.0
       with:
         token: ${{ secrets.DIGITALOCEAN_TOKEN }}
