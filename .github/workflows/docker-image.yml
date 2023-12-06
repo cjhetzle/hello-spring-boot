@@ -29,4 +29,4 @@ jobs:
 
     - name: Build and push image 🏗
       run: |-
-        docker push ${{ vars.DOCKER_IMAGE }}
+        docker push registry.digitalocean.com/${{vars.DIGITALOCEAN_CONTAINER_REGISTERY}}/${{ vars.DOCKER_IMAGE }}
