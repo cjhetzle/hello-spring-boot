@@ -3,6 +3,7 @@ package com.cjhetz.hellospringboot.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cjhetz.hellospringboot.api.model.Asset;
@@ -11,12 +12,8 @@ import com.cjhetz.hellospringboot.repository.AssetRepository;
 @Service
 public class AssetService {
 
+    @Autowired
     private AssetRepository assetRepository;
-
-    public AssetService(AssetRepository assetRepository) {
-        super();
-        this.assetRepository = assetRepository;
-    }
 
     public Optional<Asset> getAsset(Integer id) {
         return assetRepository.findById(id);

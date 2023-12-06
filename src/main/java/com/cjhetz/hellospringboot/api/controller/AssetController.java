@@ -3,6 +3,7 @@ package com.cjhetz.hellospringboot.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/assets")
 public class AssetController {
 
+    @Autowired
     private AssetService assetService;
-
-    public AssetController(AssetService assetService) {
-        this.assetService = assetService;
-    }
 
     @GetMapping("{id}")
     public Asset getAsset(@PathVariable("id") Integer id) {
@@ -47,7 +45,6 @@ public class AssetController {
         try {
             jsonResponse = new ObjectMapper().writeValueAsString(AssetDto.fromEntity(asset));
         } catch (JsonProcessingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return jsonResponse;
