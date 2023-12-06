@@ -28,5 +28,5 @@ jobs:
       run: doctl registry login --expiry-seconds 600
 
     - name: Build and push image 🏗
-        run: |-
-          docker push ${{ env.DOCKER_IMAGE }}
+      run: |-
+        docker push ${{ env.DOCKER_IMAGE }}
