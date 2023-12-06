@@ -15,6 +15,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag hello-spring-boot:$(date +%s)
+      run: docker build . --file Dockerfile --tag ${{ env.DOCKER_IMAGE }}:$(date +%s)
+    - name: GitHub Action for DigitalOcean - doctl
+      # You may pin to the exact commit or the version.
+      # uses: digitalocean/action-doctl@e5cb5b0cde9789f79c5115c2c4d902f38a708804
+      uses: digitalocean/action-doctl@v2.5.0
+      with:
+        token: ${{ secrets.DIGITALOCEAN_TOKEN }}
           
           
+    - name: Authenticate to DigitalOcean 🔐
+      run: doctl registry login --expiry-seconds 600
+
+    - name: Build and push image 🏗
+        run: |-
+          docker push ${{ env.DOCKER_IMAGE }}
