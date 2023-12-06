@@ -43,7 +43,7 @@ jobs:
 
     - name: Build and push image 🏗
       run: |-
-        docker build . --file Dockerfile --tag ${{ vars.DOCKER_IMAGE }}
-        docker tag ${{ vars.DOCKER_IMAGE }} registry.digitalocean.com/${{ vars.DIGITALOCEAN_CONTAINER_REGISTRY }}/${{ vars.DOCKER_IMAGE }}
+        docker build . --file Dockerfile --tag ${{ vars.DOCKER_IMAGE }} &&
+        docker tag ${{ vars.DOCKER_IMAGE }} registry.digitalocean.com/${{ vars.DIGITALOCEAN_CONTAINER_REGISTRY }}/${{ vars.DOCKER_IMAGE }} &&
         docker push registry.digitalocean.com/${{ vars.DIGITALOCEAN_CONTAINER_REGISTRY }}/${{ vars.DOCKER_IMAGE }}
         
