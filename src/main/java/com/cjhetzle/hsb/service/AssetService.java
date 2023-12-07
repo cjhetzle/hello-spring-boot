@@ -1,4 +1,4 @@
-package com.cjhetz.hellospringboot.service;
+package com.cjhetzle.hsb.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,12 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cjhetz.hellospringboot.api.model.Asset;
-import com.cjhetz.hellospringboot.repository.AssetRepository;
+import com.cjhetzle.hsb.entity.Asset;
+import com.cjhetzle.hsb.repository.AssetRepository;
 
 @Service
 public class AssetService {
-
     @Autowired
     private AssetRepository assetRepository;
 
@@ -24,7 +23,7 @@ public class AssetService {
     }
 
     public void createAsset(Asset asset) {
-        assetRepository.saveAndFlush(asset);
+        assetRepository.save(asset);
     }
 
     public void deleteAsset(Integer id) {
@@ -45,5 +44,4 @@ public class AssetService {
 
         return asset;
     }
-
 }

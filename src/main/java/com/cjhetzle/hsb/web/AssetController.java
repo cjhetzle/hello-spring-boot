@@ -1,4 +1,4 @@
-package com.cjhetz.hellospringboot.api.controller;
+package com.cjhetzle.hsb.web;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cjhetz.hellospringboot.api.model.Asset;
-import com.cjhetz.hellospringboot.api.model.json.AssetDto;
-import com.cjhetz.hellospringboot.service.AssetService;
+import com.cjhetzle.hsb.entity.Asset;
+import com.cjhetzle.hsb.entity.json.AssetDto;
+import com.cjhetzle.hsb.service.AssetService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/assets")
 public class AssetController {
-
     @Autowired
     private AssetService assetService;
 
@@ -54,7 +53,7 @@ public class AssetController {
     public String deleteAsset(@PathVariable("id") Integer id) {
         try {
             assetService.deleteAsset(id);
-        } catch (Exception e) { 
+        } catch (Exception e) {
             return e.getMessage();
         }
         return "Success";
@@ -70,5 +69,4 @@ public class AssetController {
         }
         return jsonResponse;
     }
-
 }

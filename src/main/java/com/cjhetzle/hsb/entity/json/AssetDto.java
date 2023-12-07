@@ -1,15 +1,18 @@
-package com.cjhetz.hellospringboot.api.model.json;
+package com.cjhetzle.hsb.entity.json;
 
-import com.cjhetz.hellospringboot.api.model.Asset;
+import com.cjhetzle.hsb.entity.Asset;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class AssetDto {
-    @JsonProperty("id")
+
+    @JsonProperty
     private Integer id;
     @JsonProperty("name")
     private String name;
