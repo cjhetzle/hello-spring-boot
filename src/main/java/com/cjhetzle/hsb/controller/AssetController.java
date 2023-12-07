@@ -29,10 +29,6 @@ public class AssetController {
     @Autowired
     private AssetService assetService;
 
-    /**
-     * @param id
-     * @return Asset
-     */
     @GetMapping("{id}")
     public Asset getAsset(@PathVariable("id") final Integer id) {
         logger.debug("entering getAsset");
