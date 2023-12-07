@@ -23,6 +23,7 @@ public class AssetDto {
         if (asset == null) {
             return dto;
         }
+
         dto.setId(asset.getId());
         dto.setName(asset.getName());
         dto.setPromoted(asset.getIsPromoted());

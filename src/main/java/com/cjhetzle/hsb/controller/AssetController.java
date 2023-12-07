@@ -1,8 +1,12 @@
 package com.cjhetzle.hsb.controller;
 
+import com.cjhetzle.hsb.entity.Asset;
+import com.cjhetzle.hsb.entity.json.AssetDto;
+import com.cjhetzle.hsb.service.AssetService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cjhetzle.hsb.entity.Asset;
-import com.cjhetzle.hsb.entity.json.AssetDto;
-import com.cjhetzle.hsb.service.AssetService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+
 
 @RestController
 @RequestMapping("/assets")
@@ -29,10 +31,6 @@ public class AssetController {
     @Autowired
     private AssetService assetService;
 
-    /**
-     * @param id
-     * @return Asset
-     */
     @GetMapping("{id}")
     public Asset getAsset(@PathVariable("id") final Integer id) {
         logger.debug("entering getAsset");
