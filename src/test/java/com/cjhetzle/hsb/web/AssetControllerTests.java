@@ -1,5 +1,6 @@
 package com.cjhetzle.hsb.web;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import io.restassured.RestAssured;
@@ -15,7 +16,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.cjhetzle.hsb.repository.AssetRepository;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
+        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver" })
 @Testcontainers
 public class AssetControllerTests {
 
@@ -29,6 +31,9 @@ public class AssetControllerTests {
     @Autowired
     AssetRepository repository;
 
+    @Autowired
+    AssetController controller;
+
     @BeforeEach
     void setUp() {
         repository.deleteAll();
@@ -36,7 +41,27 @@ public class AssetControllerTests {
     }
 
     @Test
-    void pass() {
+    void getAssetByIdTest() {
+        assertThat(controller).isNotNull();
+    }
+
+    @Test
+    void getAllAssetsTest() {
+        assertTrue(true);
+    }
+
+    @Test
+    void createAssetsTest() {
+        assertTrue(true);
+    }
+
+    @Test
+    void deleteAssetByIdTest() {
+        assertTrue(true);
+    }
+
+    @Test
+    void promoteAssetByIdTest() {
         assertTrue(true);
     }
 

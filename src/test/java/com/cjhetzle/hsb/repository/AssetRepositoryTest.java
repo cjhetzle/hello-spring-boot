@@ -1,11 +1,9 @@
 package com.cjhetzle.hsb.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,8 @@ import com.cjhetzle.hsb.entity.Asset;
 
 @DataJpaTest(properties = {
         "spring.test.database.replace=none",
-        "spring.datasource.url=jdbc:tc:postgresql:15-alpine:///assets"
+        "spring.datasource.url=jdbc:tc:postgresql:15-alpine:///assets",
+        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"
 })
 class AssetRepositoryTest {
 
