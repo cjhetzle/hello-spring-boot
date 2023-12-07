@@ -13,9 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import com.cjhetzle.hsb.entity.Asset;
 
 @DataJpaTest(properties = {
-        "spring.test.database.replace=none",
-        "spring.datasource.url=jdbc:tc:postgresql:15-alpine:///assets",
-        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"
+        "spring.test.database.replace=none"
 })
 class AssetRepositoryTest {
 

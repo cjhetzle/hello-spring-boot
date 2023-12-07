@@ -1,11 +1,6 @@
-package com.cjhetzle.hsb.web;
+package com.cjhetzle.hsb.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import org.assertj.core.util.Arrays;
-
-import io.restassured.RestAssured;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,8 +16,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import com.cjhetzle.hsb.entity.Asset;
 import com.cjhetzle.hsb.repository.AssetRepository;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
-        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver" })
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 public class AssetControllerTests {
 

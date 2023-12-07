@@ -1,8 +1,10 @@
-package com.cjhetzle.hsb.web;
+package com.cjhetzle.hsb.controller;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +23,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @RequestMapping("/assets")
 public class AssetController {
+
+    Logger logger = LoggerFactory.getLogger(AssetController.class);
+
     @Autowired
     private AssetService assetService;
 
     @GetMapping("{id}")
     public Asset getAsset(@PathVariable("id") Integer id) {
+        logger.debug("entering getAsset");
         Optional<Asset> optAss = assetService.getAsset(id);
         if (optAss.isPresent())
             return optAss.get();
@@ -34,11 +40,13 @@ public class AssetController {
 
     @GetMapping
     public List<Asset> getAssets() {
+        logger.warn("entering getAssets");
         return assetService.getAssets();
     }
 
     @PostMapping
     public String createAsset(@RequestBody Asset asset) {
+        logger.debug("entering createAsset");
         assetService.createAsset(asset);
         String jsonResponse = "failed to parse.";
         try {
