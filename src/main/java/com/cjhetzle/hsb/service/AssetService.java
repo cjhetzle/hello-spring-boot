@@ -4,7 +4,6 @@ import com.cjhetzle.hsb.entity.Asset;
 import com.cjhetzle.hsb.repository.AssetRepository;
 import java.util.List;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +34,9 @@ public class AssetService {
     }
 
     /**
-     * Take the id for an Asset.  Get the Asset, flip the value
+     * Take the id for an Asset. Get the Asset, flip the value
      * of 'isPromoted' then update the database entry.
-
+     *
      * @param id id of Asset to update
      * @return copy of new Asset
      */
@@ -52,14 +51,14 @@ public class AssetService {
         Asset asset = optAss.get();
 
         Boolean isPromoted = asset.getIsPromoted();
-        
-        logger.info(String.format(
-                "Promotion status: %s -> %s", isPromoted, !isPromoted));
+
+        logger.info(String.format("Promotion status: %s -> %s", isPromoted,
+                !isPromoted));
 
         asset.setIsPromoted(!isPromoted);
-        
-        logger.info(String.format(
-                "Updating instance as: %s", asset.toString()));
+
+        logger.info(
+                String.format("Updating instance as: %s", asset.toString()));
         // is this even necessary?
         assetRepository.save(asset);
 
