@@ -24,17 +24,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/assets")
 public class AssetController {
 
-    Logger logger = LoggerFactory.getLogger(AssetController.class);
+    private Logger logger = LoggerFactory.getLogger(AssetController.class);
 
     @Autowired
     private AssetService assetService;
 
+    /**
+     * @param id
+     * @return Asset
+     */
     @GetMapping("{id}")
-    public Asset getAsset(@PathVariable("id") Integer id) {
+    public Asset getAsset(@PathVariable("id") final Integer id) {
         logger.debug("entering getAsset");
         Optional<Asset> optAss = assetService.getAsset(id);
-        if (optAss.isPresent())
+        if (optAss.isPresent()) {
             return optAss.get();
+        }
         return null;
     }
 
@@ -45,12 +50,13 @@ public class AssetController {
     }
 
     @PostMapping
-    public String createAsset(@RequestBody Asset asset) {
+    public String createAsset(@RequestBody final Asset asset) {
         logger.debug("entering createAsset");
         assetService.createAsset(asset);
         String jsonResponse = "failed to parse.";
         try {
-            jsonResponse = new ObjectMapper().writeValueAsString(AssetDto.fromEntity(asset));
+            jsonResponse = new ObjectMapper().writeValueAsString(
+                    AssetDto.fromEntity(asset));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -58,7 +64,7 @@ public class AssetController {
     }
 
     @DeleteMapping("{id}")
-    public String deleteAsset(@PathVariable("id") Integer id) {
+    public String deleteAsset(@PathVariable("id") final Integer id) {
         try {
             assetService.deleteAsset(id);
         } catch (Exception e) {
@@ -68,11 +74,13 @@ public class AssetController {
     }
 
     @PostMapping("{id}")
-    public String promoteAsset(@PathVariable("id") Integer id) {
+    public String promoteAsset(@PathVariable("id") final Integer id) {
         String jsonResponse = "failed to parse.";
         try {
             jsonResponse = new ObjectMapper()
-                    .writeValueAsString(AssetDto.fromEntity(assetService.promoteAsset(id)));
+                    .writeValueAsString(
+                            AssetDto.fromEntity(
+                                    assetService.promoteAsset(id)));
         } catch (Exception e) {
             return e.getMessage();
         }

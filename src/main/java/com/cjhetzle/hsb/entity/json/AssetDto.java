@@ -2,7 +2,6 @@ package com.cjhetzle.hsb.entity.json;
 
 import com.cjhetzle.hsb.entity.Asset;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+    
 public class AssetDto {
 
     @JsonProperty
@@ -19,10 +19,11 @@ public class AssetDto {
     @JsonProperty("isPromoted")
     private boolean isPromoted;
 
-    public static AssetDto fromEntity(Asset asset) {
+    public static AssetDto fromEntity( Asset asset) {
         AssetDto dto = new AssetDto();
-        if (asset == null)
+        if (asset == null) {
             return dto;
+        }
         dto.setId(asset.getId());
         dto.setName(asset.getName());
         dto.setPromoted(asset.getIsPromoted());
