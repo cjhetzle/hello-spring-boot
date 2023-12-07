@@ -1,13 +1,10 @@
-name: Lint and run Tests
+name: Checkstyle and run Tests
 
 on:
   push:
     branches: [ "dev" ]
   pull_request:
     branches: [ "dev" ]
-
-permissions:
-  contents.write
 
 jobs:
 
