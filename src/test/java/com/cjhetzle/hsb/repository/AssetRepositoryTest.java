@@ -3,6 +3,10 @@ package com.cjhetzle.hsb.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +22,22 @@ class AssetRepositoryTest {
 
     @Autowired
     AssetRepository repository;
+    
+    static Asset refAsset1, refAsset2, refAsset3;
+
+    @BeforeAll
+    static void init() {
+        refAsset1 = new Asset("Asset 1", true);
+        refAsset2 = new Asset("Asset 2", false);
+        refAsset3 = new Asset("Asset 3", false); 
+    }
 
     @BeforeEach
     void setUp() {
         repository.deleteAll();
-        repository.save(new Asset("Todo Item 1", true));
-        repository.save(new Asset("Todo Item 2", false));
-        repository.save(new Asset("Todo Item 3", false));
-    }
-
-    @Test
-    void pass() {
-        assertTrue(true);
+        refAsset1 = repository.save(new Asset(refAsset1.getName(), refAsset1.getIsPromoted()));
+        refAsset2 = repository.save(new Asset(refAsset2.getName(), refAsset2.getIsPromoted()));
+        refAsset3 = repository.save(new Asset(refAsset3.getName(), refAsset3.getIsPromoted()));
     }
 
     @Test
@@ -37,21 +45,23 @@ class AssetRepositoryTest {
         assertThat(repository.findAll()).hasSize(3);
     }
 
-  @Test
-        void getByName() {
-        assertThat(repository.findByName("Asset 1")).isInstanceOf(Asset.class);
-        assertThat(repository.findByName("Asset -1")).isNotInstanceOf(Asset.class);
-        }
+    @Test
+    void getByName() {
+        List<Asset> o1 = repository.findByName("Asset 1");
+        List<Asset> o2 = repository.findByName("Asset -1");
+        assertThat(o1).hasSize(1);
+        assertThat(o2).isEmpty();
+    }
 
     @Test
     void getById() {
-        assertThat(repository.findById(3)).isInstanceOf(Asset.class);
-        assertThat(repository.findById(-1)).isNotInstanceOf(Asset.class);
+        assertThat(repository.findById(refAsset2.getId()).isPresent()).isTrue();
+        assertThat(repository.findById(-1).isPresent()).isFalse();
     }
 
     @Test
     void deleteById() {
-        repository.deleteById(1);
+        repository.deleteById(refAsset1.getId());
         assertThat(repository.findAll()).hasSize(2);
     }
 
