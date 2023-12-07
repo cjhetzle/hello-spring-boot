@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-    
 public class AssetDto {
 
     @JsonProperty
@@ -19,7 +18,7 @@ public class AssetDto {
     @JsonProperty("isPromoted")
     private boolean isPromoted;
 
-    public static AssetDto fromEntity( Asset asset) {
+    public static AssetDto fromEntity(final Asset asset) {
         AssetDto dto = new AssetDto();
         if (asset == null) {
             return dto;
