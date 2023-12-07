@@ -3,7 +3,11 @@ package com.cjhetzle.hsb.web;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import org.assertj.core.util.Arrays;
+
 import io.restassured.RestAssured;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import com.cjhetzle.hsb.entity.Asset;
 import com.cjhetzle.hsb.repository.AssetRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
@@ -34,35 +39,80 @@ public class AssetControllerTests {
     @Autowired
     AssetController controller;
 
+    static Asset refAsset1, refAsset2, refAsset3;
+
+    @BeforeAll
+    static void init() {
+        refAsset1 = new Asset("Asset 1", true);
+        refAsset2 = new Asset("Asset 2", false);
+        refAsset3 = new Asset("Asset 3", false);
+    }
+
     @BeforeEach
     void setUp() {
         repository.deleteAll();
-        RestAssured.baseURI = "http://localhost:" + port;
+        refAsset1 = repository.save(new Asset(refAsset1.getName(), refAsset1.getIsPromoted()));
+        refAsset2 = repository.save(new Asset(refAsset2.getName(), refAsset2.getIsPromoted()));
+        refAsset3 = repository.save(new Asset(refAsset3.getName(), refAsset3.getIsPromoted()));
     }
 
     @Test
     void getAssetByIdTest() {
-        assertThat(controller).isNotNull();
+        assertThat(
+                controller.getAsset(
+                        refAsset1.getId()))
+                .isEqualTo(refAsset1);
+
+        assertThat(
+                controller.getAsset(
+                        refAsset2.getId()))
+                .isEqualTo(refAsset2);
+
+        assertThat(
+                controller.getAsset(
+                        refAsset3.getId()))
+                .isEqualTo(refAsset3);
     }
 
     @Test
     void getAllAssetsTest() {
-        assertTrue(true);
+        assertThat(controller.getAssets())
+                .hasSize(3)
+                .contains(refAsset1, refAsset2, refAsset3);
     }
 
     @Test
     void createAssetsTest() {
-        assertTrue(true);
+        Asset refAsset4 = new Asset("Asset 4", false);
+
+        assertThat(controller.createAsset(refAsset4))
+                .contains(refAsset4.getName(),
+                        String.valueOf(refAsset4.getId()),
+                        refAsset4.getIsPromoted().toString());
+
+        assertThat(controller.getAssets())
+                .contains(refAsset4);
     }
 
     @Test
     void deleteAssetByIdTest() {
-        assertTrue(true);
+        assertThat(controller.deleteAsset(refAsset3.getId()))
+                .isEqualToIgnoringCase("success");
+
+        assertThat(controller.getAssets())
+                .doesNotContain(refAsset3);
     }
 
     @Test
     void promoteAssetByIdTest() {
-        assertTrue(true);
+        assertThat(controller.getAsset(refAsset1.getId())
+                .getIsPromoted())
+                .isEqualTo(refAsset1.getIsPromoted());
+
+        refAsset1.setIsPromoted(!refAsset1.getIsPromoted());
+
+        assertThat(controller.promoteAsset(refAsset1.getId()))
+                .contains(refAsset1.getIsPromoted().toString());
     }
 
 }
