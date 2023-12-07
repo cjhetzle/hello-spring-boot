@@ -16,7 +16,6 @@ class ApplicationTests {
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine");
 
     @Test
-    void contextLoads() {
-    }
+    void contextLoads() {}
 
 }

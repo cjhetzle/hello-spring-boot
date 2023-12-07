@@ -19,14 +19,14 @@ class AssetRepositoryTest {
 
     @Autowired
     AssetRepository repository;
-    
+
     static Asset refAsset1, refAsset2, refAsset3;
 
     @BeforeAll
     static void init() {
         refAsset1 = new Asset("Asset 1", true);
         refAsset2 = new Asset("Asset 2", false);
-        refAsset3 = new Asset("Asset 3", false); 
+        refAsset3 = new Asset("Asset 3", false);
     }
 
     @BeforeEach

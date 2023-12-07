@@ -7,7 +7,8 @@ import org.springframework.data.repository.ListPagingAndSortingRepository;
 
 import com.cjhetzle.hsb.entity.Asset;
 
-public interface AssetRepository extends ListCrudRepository<Asset, Integer>, ListPagingAndSortingRepository<Asset, Integer> {
+public interface AssetRepository
+        extends ListCrudRepository<Asset, Integer>, ListPagingAndSortingRepository<Asset, Integer> {
 
     List<Asset> findByName(String name);
 }

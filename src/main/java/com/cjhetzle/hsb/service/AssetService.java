@@ -34,7 +34,7 @@ public class AssetService {
         Optional<Asset> optAss = assetRepository.findById(id);
         if (!optAss.isPresent())
             return null;
-        
+
         Asset asset = optAss.get();
 
         asset.setIsPromoted(asset.getIsPromoted() ? false : true);

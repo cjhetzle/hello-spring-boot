@@ -71,7 +71,8 @@ public class AssetController {
     public String promoteAsset(@PathVariable("id") Integer id) {
         String jsonResponse = "failed to parse.";
         try {
-            jsonResponse = new ObjectMapper().writeValueAsString(AssetDto.fromEntity(assetService.promoteAsset(id)));
+            jsonResponse = new ObjectMapper()
+                    .writeValueAsString(AssetDto.fromEntity(assetService.promoteAsset(id)));
         } catch (Exception e) {
             return e.getMessage();
         }
