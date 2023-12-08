@@ -23,7 +23,7 @@ jobs:
       run: |- 
         doctl r r lm hello-spring-boot | awk 'NR>1{print $1}' > output.txt &&
         while read digest; do
-          doctl r r dm hello-spring-boot $digest -y
+          doctl r r dm hello-spring-boot $digest -f
         done <output.txt
 
   run-garbage-collection:
