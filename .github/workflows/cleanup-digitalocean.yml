@@ -1,4 +1,4 @@
-name: Free-Up Storage
+name: Cleanup Digital Ocean
 
 on:
   schedule:
@@ -6,6 +6,27 @@ on:
   workflow_dispatch:
 
 jobs:
+
+  remove-old-images:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: GitHub Action for DigitalOcean - doctl 🌊
+      uses: digitalocean/action-doctl@v2.5.0
+      with:
+        token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+
+    - name: Authenticate to DigitalOcean 🔐
+      run: doctl registry login --expiry-seconds 600
+
+    - name: Create file of digests to remove
+      run: doctl r r lm hello-spring-boot | awk 'NR>1{print $1}' > output.txt
+    
+    - name: Loop over file and Delete digests
+      run: |-
+        while read digest; do
+          doctl r r dt $digest
+        done <output.txt
 
   run-garbage-collection:
 
