@@ -21,7 +21,7 @@ jobs:
 
     - name: List digest and then delete
       run: |- 
-        doctl r r lm hello-spring-boot | awk 'NR>1{print $1}' > output.txt &&
+        doctl r r lm hello-spring-boot | awk 'NR>3{print $1}' > output.txt &&
         while read digest; do
           doctl r r dm hello-spring-boot $digest -f
         done <output.txt
