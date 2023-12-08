@@ -19,11 +19,9 @@ jobs:
     - name: Authenticate to DigitalOcean 🔐
       run: doctl registry login --expiry-seconds 600
 
-    - name: Create file of digests to remove
-      run: doctl r r lm hello-spring-boot | awk 'NR>1{print $1}' > output.txt
-    
-    - name: Loop over file and Delete digests
-      run: |-
+    - name: List digest and then delete
+      run: |- 
+        doctl r r lm hello-spring-boot | awk 'NR>1{print $1}' > output.txt &&
         while read digest; do
           doctl r r dm $digest
         done <output.txt
