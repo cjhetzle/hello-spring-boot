@@ -25,7 +25,7 @@ jobs:
     - name: Loop over file and Delete digests
       run: |-
         while read digest; do
-          doctl r r dt $digest
+          doctl r r dm $digest
         done <output.txt
 
   run-garbage-collection:
