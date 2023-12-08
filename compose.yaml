@@ -1,12 +1,16 @@
 services:
   rest:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       - 'SB_DB_URL=${SB_DB_URL}'
       - 'SB_DB_PW=${SB_DB_PW}'
       - 'SB_DB_USER=${SB_DB_USER}'
     ports:
       - '8000:8080'
+    depends_on:
+      - db
 
   db:
     image: 'postgres:latest'
