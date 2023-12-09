@@ -10,4 +10,6 @@ public interface AssetRepository
         ListPagingAndSortingRepository<Asset, Integer> {
 
     List<Asset> findByName(String name);
+
+    List<Asset> findAllByParentAsset(Integer id);
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,5 +30,9 @@ public class Asset {
     @NonNull
     @Column(name = "is_promoted", nullable = false)
     private Boolean isPromoted;
+
+    @JoinColumn(name = "assets", referencedColumnName = "id")
+    @Column(name = "parent_asset", nullable = true)
+    private Integer parentAsset;
 
 }
