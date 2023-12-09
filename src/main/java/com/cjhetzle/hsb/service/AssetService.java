@@ -62,8 +62,8 @@ public class AssetService {
         return asset;
     }
 
-    private void promoteAssets(Asset asset) {
-        
+    private void promoteAssets(final Asset asset) {
+
         Boolean isPromoted = !asset.getIsPromoted();
 
         Asset root = findRootAsset(asset);
@@ -72,24 +72,27 @@ public class AssetService {
 
     }
 
-    private Asset findRootAsset(Asset asset) {
+    private Asset findRootAsset(final Asset asset) {
 
         Integer parentAssetId = asset.getParentAsset();
-        if (parentAssetId == null)
+        if (parentAssetId == null) {
             return asset;
-
+        }
         Optional<Asset> optAss = assetRepository.findById(parentAssetId);
 
         Asset parentAsset = optAss.isPresent() ? optAss.get() : null;
 
-        if (parentAsset == null)
+        if (parentAsset == null) {
             return asset;
+        }
 
         return findRootAsset(parentAsset);
     }
 
-    private void promoteChildAssets(Asset parentAsset, Boolean isPromoted) {
-       List<Asset> childAssets = assetRepository.findAllByParentAsset(parentAsset.getId());
+    private void promoteChildAssets(final Asset parentAsset,
+            final Boolean isPromoted) {
+        List<Asset> childAssets = assetRepository
+                .findAllByParentAsset(parentAsset.getId());
 
         parentAsset.setIsPromoted(isPromoted);
         assetRepository.save(parentAsset);
