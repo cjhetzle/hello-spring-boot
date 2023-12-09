@@ -60,6 +60,15 @@ spring.datasource.password=secret
 ./mvnw run tests
 ```
 
+## Running checkstyle
+```
+find checkstyle exceptions
+./mvnw checkstyle:check
+
+create a checkstyle report
+./mvnw checkstyle:checkstyle
+```
+
 ## Deploying test env
 ```
 this will provide a portable environment to run and test the rest interface
@@ -73,7 +82,7 @@ to pass env vars into the docker container through the compose-test.yaml file.
 ./docker-compose up -d
 ```
 
-## Deploying 
+## Deploying prod env
 ```
 via jar exec
 
