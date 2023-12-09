@@ -92,3 +92,6 @@ docker push {cr-host}/{container-registry}/{image-name}:{tag}
 
 from here deploy as necessary
 ```
+
+## Documentation
+You may want to visit the `{hostname}/swagger-ui/index.html` endpoint, provided by springdoc-openapi to get an understanding of the RESTful interface.
