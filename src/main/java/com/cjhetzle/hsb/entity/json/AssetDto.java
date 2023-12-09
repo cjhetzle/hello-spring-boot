@@ -17,6 +17,8 @@ public class AssetDto {
     private String name;
     @JsonProperty("isPromoted")
     private boolean isPromoted;
+    @JsonProperty("parentAsset")
+    private Integer parentAsset;
 
     public static AssetDto fromEntity(final Asset asset) {
         AssetDto dto = new AssetDto();
@@ -27,6 +29,7 @@ public class AssetDto {
         dto.setId(asset.getId());
         dto.setName(asset.getName());
         dto.setPromoted(asset.getIsPromoted());
+        dto.setParentAsset(asset.getParentAsset());
         return dto;
     }
 }

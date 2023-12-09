@@ -4,9 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - 'SB_DB_URL=${SB_DB_URL}'
-      - 'SB_DB_PW=${SB_DB_PW}'
-      - 'SB_DB_USER=${SB_DB_USER}'
+      - 'SB_DB_URL=jdbc:postgresql://db:5432/mydatabase'
+      - 'SB_DB_PW=secret'
+      - 'SB_DB_USER=myuser'
     ports:
       - '8000:8080'
     depends_on:

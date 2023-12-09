@@ -31,6 +31,12 @@ public class AssetService {
 
     public void deleteAsset(final Integer id) {
         assetRepository.deleteById(id);
+        List<Asset> childAssets = assetRepository.findAllByParentAsset(id);
+
+        for (Asset asset : childAssets) {
+            asset.setParentAsset(null);
+            assetRepository.save(asset);
+        }
     }
 
     /**
@@ -50,19 +56,46 @@ public class AssetService {
 
         Asset asset = optAss.get();
 
-        Boolean isPromoted = asset.getIsPromoted();
-
-        logger.info(String.format("Promotion status: %s -> %s", isPromoted,
-                !isPromoted));
-
-        asset.setIsPromoted(!isPromoted);
-
-        logger.info(
-                String.format("Updating instance as: %s", asset.toString()));
-        // is this even necessary?
-        assetRepository.save(asset);
+        promoteAssets(asset);
 
         logger.trace(String.format("exiting %s...", methodName));
         return asset;
+    }
+
+    private void promoteAssets(Asset asset) {
+        
+        Boolean isPromoted = !asset.getIsPromoted();
+
+        Asset root = findRootAsset(asset);
+
+        promoteChildAssets(root, isPromoted);
+
+    }
+
+    private Asset findRootAsset(Asset asset) {
+
+        Integer parentAssetId = asset.getParentAsset();
+        if (parentAssetId == null)
+            return asset;
+
+        Optional<Asset> optAss = assetRepository.findById(parentAssetId);
+
+        Asset parentAsset = optAss.isPresent() ? optAss.get() : null;
+
+        if (parentAsset == null)
+            return asset;
+
+        return findRootAsset(parentAsset);
+    }
+
+    private void promoteChildAssets(Asset parentAsset, Boolean isPromoted) {
+       List<Asset> childAssets = assetRepository.findAllByParentAsset(parentAsset.getId());
+
+        parentAsset.setIsPromoted(isPromoted);
+        assetRepository.save(parentAsset);
+
+        for (Asset asset : childAssets) {
+            promoteChildAssets(asset, isPromoted);
+        }
     }
 }
