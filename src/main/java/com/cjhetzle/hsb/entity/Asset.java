@@ -19,6 +19,13 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class Asset {
 
+    public Asset(final String name, final Boolean isPromoted,
+            final Integer parentAsset) {
+        this.name = name;
+        this.isPromoted = isPromoted;
+        this.parentAsset = parentAsset;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

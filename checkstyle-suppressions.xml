@@ -12,4 +12,5 @@
     <suppress checks="JavadocPackage" files=".*.java"/>
     <suppress checks="DesignForExtension" files=".*.java"/>
     <suppress checks="HideUtilityClassConstructor" files="Application.java"/>
+    <suppress checks="HiddenField" files=".*.java"/>
 </suppressions>
