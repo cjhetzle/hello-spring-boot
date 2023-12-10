@@ -2,15 +2,14 @@ package com.cjhetzle.hsb.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.cjhetzle.hsb.entity.Asset;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.cjhetzle.hsb.entity.Asset;
 
 @DataJpaTest(properties = {
         "spring.test.database.replace=none"
@@ -20,7 +19,9 @@ class AssetRepositoryTest {
     @Autowired
     AssetRepository repository;
 
-    static Asset refAsset1, refAsset2, refAsset3;
+    static Asset refAsset1;
+    static Asset refAsset2;
+    static Asset refAsset3;
 
     @BeforeAll
     static void init() {
