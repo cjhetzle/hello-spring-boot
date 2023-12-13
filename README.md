@@ -36,6 +36,9 @@ edit -> ./src/main/resources/application.properties
 spring.datasource.url= ? # format jdbc:postgresql://{hostname}:{port}/{database-name}
 spring.datasource.username= ?
 spring.datasource.password= ?
+
+chmod +x ./mvnw
+export JAVA_HOME={dir-to-jdk}
 ```
 
 ## Execution
